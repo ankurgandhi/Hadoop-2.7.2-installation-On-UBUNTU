@@ -1,5 +1,7 @@
 Hadoop 2.7.X installation On UBUNTU
 
+###################################### This Document is a Property of Ankur Gandhi, who will be the sole owner of this Document, Anyone wants to use this document please use it carefully as the owner will not be responsible for any outcome. For any clarification or for any Edit to the document is not permisible without the concern of the Owner of this document.######################################
+
 ## 1 Objective
 This Hadoop tutorial explains about the installation of Apache Hadoop 2.7.x. In this tutorial, we will deploy Hadoop on the Single server (single node cluster) on Ubuntu OS. This quick start will help you to install, configure, and run Hadoop in less than 10 min. While installation we will enable YARN so that apart from MapReduce you can run different types of applications like Spark.
 
