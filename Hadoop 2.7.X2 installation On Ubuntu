@@ -1,0 +1,160 @@
+Hadoop 2.7.X installation On UBUNTU
+
+## 1 Objective
+This Hadoop tutorial explains about the installation of Apache Hadoop 2.7.x. In this tutorial, we will deploy Hadoop on the Single server (single node cluster) on Ubuntu OS. This quick start will help you to install, configure, and run Hadoop in less than 10 min. While installation we will enable YARN so that apart from MapReduce you can run different types of applications like Spark.
+
+## 2. Installation of Apache Hadoop 2.7.2. on Ubuntu
+In this section of Hadoop tutorial, we will learn installation of Apache Hadoop 2.7.2 on Ubuntu OS. Follow the steps given below to install Hadoop 2.7.x –
+
+2.1. Prerequisites
+If you are using Windows/Mac OS you can create a virtual machine and install Ubuntu using VMWare Player, alternatively, you can create a virtual machine and install Ubuntu using Oracle Virtual Box.
+
+I. Install Oracle Java 8
+
+## a. Install Python Software Properties ##
+$sudo apt-get install python-software-properties
+
+## b. Add Repository #
+$sudo add-apt-repository ppa:webupd8team/java
+
+## c. Update the source list ##
+$sudo apt-get update
+
+## d. Install Java ##
+$sudo apt-get install oracle-java8-installer
+
+II. Setup Password-less SSH
+
+## a. Install Open SSH Server & Open SSH Client ##
+$sudo apt-get install openssh-server openssh-client
+
+## b. Generate Public & Private Key Pairs ##
+$ssh-keygen -t rsa -P ""
+
+## c. Configure password-less SSH ##
+$cat $HOME/.ssh/id_rsa.pub >> $HOME/.ssh/authorized_keys
+
+## d. Check by SSH to localhost ##
+$ssh localhost
+
+3.1. Configure and Setup Hadoop
+I. Download Hadoop
+https://archive.apache.org/dist/hadoop/common/hadoop-2.7.2/hadoop-2.7.2.tar.gz
+
+II. Untar Tar ball
+$tar xzf hadoop-2.7.2.tar.gz
+
+### Note: All the required jars, scripts, configuration files, etc. are available in HADOOP_HOME directory (hadoop-2.7.2) ###
+
+III. Setup Configuration
+## a. Edit .bashrc ##
+## Edit .bashrc file located in user’s home directory and add following parameters: ##
+
+export HADOOP_PREFIX=/home/hdadmin/hadoop-2.7.2
+export PATH=$PATH:$HADOOP_PREFIX/bin
+export PATH=$PATH:$HADOOP_PREFIX/sbin
+export HADOOP_MAPRED_HOME=${HADOOP_PREFIX}
+export HADOOP_COMMON_HOME=${HADOOP_PREFIX}
+export HADOOP_HDFS_HOME=${HADOOP_PREFIX}
+export YARN_HOME=${HADOOP_PREFIX}
+export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_PREFIX/lib/native
+export HADOOP_OPTS="-Djava.library.path=$HADOOP_PREFIX/lib"
+
+## Note: After above step restarts the terminal so that all the environment variables will come into effect ##
+
+## b. Edit hadoop-env.sh ##
+
+##Edit hadoop-env.sh (hadoop-env.sh is located in etc/hadoop inside Hadoop installation directory) and set JAVA_HOME:
+
+export JAVA_HOME=<root-of-your-Java-installation> (eg: /usr/lib/jvm/java-8-oracle/)
+
+## c. Edit core-site.xml ##
+## Edit core-site.xml (core-site.xml is located in etc/hadoop inside Hadoop installation directory) and add following entries: ##
+
+<configuration>
+<property>
+<name>fs.defaultFS</name>
+<value>hdfs://localhost:9000</value>
+</property>
+<property>
+<name>hadoop.tmp.dir</name>
+<value>/home/hdadmin/hdata</value>
+</property>
+</configuration>
+
+### Note: you must have Read Write privileges in /home/hdadmin/hdata else specify a location where you have Read Write privileges. ###
+
+## d. Edit hdfs-site.xml ##
+## Edit hdfs-site.xml (hdfs-site.xml is located in etc/hadoop inside Hadoop installation directory) and add following entries:##
+
+<configuration>
+<property>
+<name>dfs.replication</name>
+<value>1</value>
+</property>
+</configuration>
+
+## e. Edit mapred-site.xml ##
+## Edit mapred-site.xml (mapred-site.xml.template is located in etc/hadoop inside Hadoop installation directory, copy the file with the name mapred-site.xml) and add following entries: ##
+
+<configuration>
+<property>
+<name>mapreduce.framework.name</name>
+<value>yarn</value>
+</property>
+</configuration>
+
+## f. Edit yarn-site.xml ##
+## Edit yarn-site.xml (yarn-site.xml is located in etc/hadoop inside Hadoop installation directory) and add following entries: ##
+
+<configuration>
+<property>
+<name>yarn.nodemanager.aux-services</name>
+<value>mapreduce_shuffle</value>
+</property>
+<property>
+<name>yarn.nodemanager.aux-services.mapreduce.shuffle.class</name>
+<value>org.apache.hadoop.mapred.ShuffleHandler</value>
+</property>
+</configuration>
+
+4.1. Start the Cluster
+I. Format the name node:
+
+$hdfs namenode -format
+
+## NOTE: Namenode should be formatted just once when you install Hadoop. ##
+
+## Start HDFS Services ##
+II. Start HDFS Services:
+$start-dfs.sh
+
+## Start YARN Services ##
+III. Start YARN Services:
+$start-yarn.sh
+
+IV. Check whether services have been started by using the Command (JPS)
+$jps
+{#####################Result should be#####################}
+===>>NameNode
+===>>DataNode
+===>>ResourceManager
+===>>NodeManager
+===>>SecondaryNameNode####
+
+5.1. Run Map-Reduce Jobs
+I. Run word count example:
+
+$hdfs dfs -mkdir /data
+$hdfs dfs -put <file> /data
+$yarn jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.2.jar wordcount /data /data-out
+$hdfs dfs -cat /data-out/*
+
+## To work with HDFS and perform various operations follow this guide ##
+
+6.1. Stop the Cluster
+I. Stop HDFS Services:
+$stop-dfs.sh
+
+II. Stop YARN Services:
+$stop-yarn.sh
