@@ -1,15 +1,22 @@
 Hadoop 2.7.X installation On UBUNTU
 
-###################################### This Document is a Property of Ankur Gandhi, who will be the sole owner of this Document, Anyone wants to use this document please use it carefully as the owner will not be responsible for any outcome. For any clarification or for any Edit to the document is not permisible without the concern of the Owner of this document.######################################
+#####This Document is a Property of Ankur Gandhi, who will be the sole owner of this Document, Anyone wants to use this 
+document please use it carefully as the owner will not be responsible for any outcome. For any clarification or for any 
+Edit to the document is not permisible without the concern of the Owner of this document.#####################
 
 ## 1 Objective
-This Hadoop tutorial explains about the installation of Apache Hadoop 2.7.x. In this tutorial, we will deploy Hadoop on the Single server (single node cluster) on Ubuntu OS. This quick start will help you to install, configure, and run Hadoop in less than 10 min. While installation we will enable YARN so that apart from MapReduce you can run different types of applications like Spark.
+This Hadoop tutorial explains about the installation of Apache Hadoop 2.7.x. In this tutorial, we will deploy Hadoop on 
+the Single server (single node cluster) on Ubuntu OS. This quick start will help you to install, configure, and run 
+Hadoop in less than 10 min. While installation we will enable YARN so that apart from MapReduce you can run different 
+types of applications like Spark.
 
 ## 2. Installation of Apache Hadoop 2.7.2. on Ubuntu
-In this section of Hadoop tutorial, we will learn installation of Apache Hadoop 2.7.2 on Ubuntu OS. Follow the steps given below to install Hadoop 2.7.x –
+In this section of Hadoop tutorial, we will learn installation of Apache Hadoop 2.7.2 on Ubuntu OS. Follow the steps 
+given below to install Hadoop 2.7.2 –
 
 2.1. Prerequisites
-If you are using Windows/Mac OS you can create a virtual machine and install Ubuntu using VMWare Player, alternatively, you can create a virtual machine and install Ubuntu using Oracle Virtual Box.
+If you are using Windows/Mac OS you can create a virtual machine and install Ubuntu using VMWare Player, alternatively, 
+you can create a virtual machine and install Ubuntu using Oracle Virtual Box.
 
 I. Install Oracle Java 8
 
@@ -97,7 +104,8 @@ export JAVA_HOME=<root-of-your-Java-installation> (eg: /usr/lib/jvm/java-8-oracl
 </configuration>
 
 ## e. Edit mapred-site.xml ##
-## Edit mapred-site.xml (mapred-site.xml.template is located in etc/hadoop inside Hadoop installation directory, copy the file with the name mapred-site.xml) and add following entries: ##
+## Edit mapred-site.xml (mapred-site.xml.template is located in etc/hadoop inside Hadoop installation directory, copy the 
+file with the name mapred-site.xml) and add following entries: ##
 
 <configuration>
 <property>
